@@ -9,7 +9,7 @@ const renderAllCoctels = ()=>{
           
           let classFav = indexFav === -1 ? '' : 'pink';
 
-        list.innerHTML += `<li class= "js_li ${classFav}" id= "${drink.idDrink}"> <i class="fa-solid fa-plus js_plus"></i> <i class="fa-solid fa-circle-xmark hidden js_less"></i> ${drink.strDrink} </i> 
+        list.innerHTML += `<li class= "js_li ${classFav}" id= "${drink.idDrink}"> <i class="fa-solid fa-plus js_plus hidden"></i> <i class="fa-solid fa-circle-xmark hidden js_less"></i> ${drink.strDrink} </i> 
         <img src = '${drink.strDrinkThumb}'/>
         </li>`
     }
@@ -23,10 +23,10 @@ const renderAllCoctels = ()=>{
 }
 
 function renderFav(){
-    listFav.innerHTML = 'Mis cocteles favoritos';
+    listFav.innerHTML = ' ';
     favoriteList.innerHTML =" ";
 for (const fav of favCoctels) {
-
+    listFav.innerHTML = 'Mis cocteles favoritos';
     favoriteList.innerHTML += `<li class= " "> <i id= "${fav.idDrink}" class="fa-solid fa-circle-xmark js_x"> ${fav.strDrink}
 <img src = '${fav.strDrinkThumb}'/>
 </li>`
@@ -79,7 +79,6 @@ function handleClose (event){
     
 
 function handleFav (event){
-    // const coctelClicked = event.currentTarget.closest('.js_li').id;
     const coctelClicked = event.currentTarget.id;
     const coctelListClicked = listCoctels.find((item) => item.idDrink === coctelClicked
 )
