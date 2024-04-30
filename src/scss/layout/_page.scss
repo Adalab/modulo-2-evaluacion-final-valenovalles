@@ -1,13 +1,40 @@
+body{
+    background-color: antiquewhite;
+}
 img{
     width: 250px;
     height: 250px;
+    margin-left: 20px;
+}
+p{
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+.buscador{
+    margin-left: 30px;
+}
+.button{
+    background-color: pink;
+    color: black;
+    border-radius: 5px;
+    font: 25px;
+}
+
+h1{
+    margin-left: 30px;
 }
 
 li{
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
+    margin-bottom: 20px;
+    padding-left: 20px;
     width: 400px;
+    border: 2px solid palevioletred;
+    border-radius: 5px;
+    font-size: 20px;
 }
 
 .pink{
@@ -17,4 +44,8 @@ color: blue;
 
 body{
     display: flex;
+}
+
+.hidden{
+    display: none;
 }
