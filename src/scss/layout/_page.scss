@@ -1,3 +1,7 @@
+main{
+    display: flex;
+    flex-direction: row-reverse;
+}
 body{
     background-image: url("../images/fondo_3.jpg");
     background-size: contain; 

@@ -9,8 +9,8 @@ const renderAllCoctels = ()=>{
           
           let classFav = indexFav === -1 ? '' : 'pink';
 
-        list.innerHTML += `<li class= "js_li ${classFav}" id= "${drink.idDrink}"> <i class="fa-solid fa-plus js_plus hidden"></i> <i class="fa-solid fa-circle-xmark hidden js_less"></i> ${drink.strDrink} </i> 
-        <img src = '${drink.strDrinkThumb}'/>
+        list.innerHTML += `<li class= "js_li ${classFav}" id= "${drink.idDrink}"> <i class="fa-solid fa-plus js_plus hidden"></i> <i class="fa-solid fa-circle-xmark hidden js_less"></i> ${drink.strDrink} </i> <p>${drink.strCategory}</p>
+        <img src="${drink.strDrinkThumb ? drink.strDrinkThumb : './images/emoji.jpg'}"/>
         </li>`
     }
 
@@ -27,7 +27,7 @@ function renderFav(){
     favoriteList.innerHTML =" ";
 for (const fav of favCoctels) {
     listFav.innerHTML = 'Mis cocteles favoritos';
-    favoriteList.innerHTML += `<li class= " "> <i id= "${fav.idDrink}" class="fa-solid fa-circle-xmark js_x"> ${fav.strDrink}
+    favoriteList.innerHTML += `<li class= " "> <i class="fa-solid fa-circle-xmark js_x" id= "${fav.idDrink}"> ${fav.strDrink}
 <img src = '${fav.strDrinkThumb}'/>
 </li>`
 }
@@ -36,8 +36,9 @@ localStorage.setItem('favCoctels', JSON.stringify(favCoctels));
 const btnClose = document.querySelectorAll('.js_x');
 for (const btn of btnClose) {
     btn.addEventListener('click', handleClose);
+    console.log(btn);
 }
-renderAllCoctels();
+// renderAllCoctels();
 }
 
 const getDataApi = ()=>{
@@ -66,23 +67,26 @@ function handleSearch (){
 
 function handleClose (event){
     
-        const coctelClicked = event.currentTarget.id;
-        const favoriteLiClickedIndex = favCoctels.findIndex((item) => item.idDrink === coctelClicked);
-        console.log("click en cerrar" + coctelClicked);
-       
-            favCoctels.splice(favoriteLiClickedIndex, 1);
-           
-            localStorage.setItem('favCoctels', JSON.stringify(favCoctels));
-        
+    const clickedElement = event.target;
+    // Verificar si el elemento clicado tiene la clase .js_x
+    if (clickedElement.classList.contains('js_x')) {
+        const coctelClicked = clickedElement.id;
+        const favoriteLiClickedIndexClose = favCoctels.findIndex((item) => item.idDrink === coctelClicked);
+
+        favCoctels.splice(favoriteLiClickedIndexClose, 1);
+        localStorage.setItem('favCoctels', JSON.stringify(favCoctels));
+
+        renderAllCoctels();
         renderFav();
     }
-    
+}
 
 function handleFav (event){
-    const coctelClicked = event.currentTarget.id;
-    const coctelListClicked = listCoctels.find((item) => item.idDrink === coctelClicked
+    const coctelFavClicked = event.currentTarget.id;
+    console.log(coctelFavClicked);
+    const coctelListClicked = listCoctels.find((item) => item.idDrink === coctelFavClicked
 )
-const favoriteLiClickedIndex = favCoctels.findIndex ((item)=> item.idDrink === coctelClicked);
+const favoriteLiClickedIndex = favCoctels.findIndex ((item)=> item.idDrink === coctelFavClicked);
 if (favoriteLiClickedIndex === -1){
     favCoctels.push(coctelListClicked);
     event.currentTarget.classList.add('pink')
@@ -133,6 +137,14 @@ const init = () => {
       getDataApi();
     }
   };
+
+  function handleConsole(){
+    for (const favorite of favCoctels) {
+        console.log(favorite.strDrink);        
+    }
+  }
+  
+  log.addEventListener('click', handleConsole);
 
 init();
 btnReset.addEventListener ('click', handleReset);
